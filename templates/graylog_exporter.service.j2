@@ -9,12 +9,12 @@ StartLimitInterval=0
 Type=simple
 Restart=always
 ExecStart=/usr/local/bin/graylog-exporter \
-    -log.level debug \
-    -graylog.username admin \
-    -graylog.password Peanagwednug1 \
-    -graylog.url https://graylog.kosc.net/api \
+    -log.level {{ graylog_exporter_loglevel }} \
+    -graylog.username {{ graylog_exporter_graylog_admin }} \
+    -graylog.password {{ graylog_exporter_graylog_passwd }} \
+    -graylog.url {{ graylog_exporter_graylog_url }} \
     -listen-address ":{{ graylog_exporter_listen_port }}" \
-    -graylog.metrics "jvm.memory.total.max,jvm.memory.total.used,jvm.memory.total.init,org.graylog2.throughput.output,org.graylog2.throughput.input,org.graylog2.throughput.input.1-sec-rate,org.graylog2.throughput.output.1-sec-rate,org.graylog2.journal.entries-uncommitted"
+    -graylog.metrics "{{ graylog_exporter_metrics }}"
 
 ExecReload=/bin/kill -HUP $MAINPID
 SyslogIdentifier=graylog_exporter

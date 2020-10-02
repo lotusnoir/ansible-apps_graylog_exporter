@@ -2,5 +2,10 @@
 graylog_exporter_version:   "0.2.1"
 graylog_exporter_url:       "https://github.com/lotusnoir/prometheus-graylog_exporter/releases/download/v{{ graylog_exporter_version }}/graylog-exporter"
 
-graylog_url: "http://localhost:9000"
+
+graylog_exporter_loglevel: info
+graylog_exporter_graylog_admin: admin
+graylog_exporter_graylog_passwd: ""
+graylog_exporter_graylog_url: "http://localhost:9000"
 graylog_exporter_listen_port: "9122"
+graylog_exporter_metrics: "jvm.memory.total.max,jvm.memory.total.used,jvm.memory.total.init,org.graylog2.throughput.output,org.graylog2.throughput.input,org.graylog2.throughput.input.1-sec-rate,org.graylog2.throughput.output.1-sec-rate,org.graylog2.journal.entries-uncommitted,org.graylog2.buffers.input.size,org.graylog2.buffers.input.usage,org.graylog2.buffers.output.size,org.graylog2.buffers.output.usage"
