@@ -9,11 +9,11 @@ StartLimitInterval=0
 Type=simple
 Restart=always
 ExecStart=/usr/local/bin/graylog-exporter \
+    -listen-address "{{ graylog_exporter_listen_port }}" \
     -log.level {{ graylog_exporter_loglevel }} \
     -graylog.username {{ graylog_exporter_graylog_admin }} \
     -graylog.password {{ graylog_exporter_graylog_passwd }} \
     -graylog.url {{ graylog_exporter_graylog_url }} \
-    -listen-address ":{{ graylog_exporter_listen_port }}" \
     -graylog.metrics "{{ graylog_exporter_metrics }}"
 
 ExecReload=/bin/kill -HUP $MAINPID
