@@ -1,5 +1,5 @@
 ---
-- name: "restart squid_exporter"
+- name: "restart graylog_exporter"
   service:
-    name: "squid_exporter"
+    name: "graylog_exporter"
     state: "restarted"

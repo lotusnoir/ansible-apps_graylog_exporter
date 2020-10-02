@@ -1,29 +1,29 @@
 ---
-- name: "Check for squid_exporter binary"
+- name: "Check for graylog-exporter binary"
   stat:
-    path: "/usr/local/bin/squid_exporter"
+    path: "/usr/local/bin/graylog-exporter"
   changed_when: false
-  register: squid_exporter_install
+  register: graylog_exporter_install
 
-- when: not squid_exporter_install.stat.exists
+- when: not graylog_exporter_install.stat.exists
   block:
-    - name: "Download squid_exporter..."
+    - name: "Download graylog-exporter..."
       get_url:
-        url: '{{ squid_exporter_url }}'
-        dest: /usr/local/bin/
+        url: '{{ graylog_exporter_url }}'
+        dest: /usr/local/bin/graylog-exporter
         timeout: 120
         mode: 0755
 
-- name: "Create systemd for squid_exporter"
+- name: "Create systemd for graylog_exporter"
   template:
-    src: squid_exporter.service
-    dest: /etc/systemd/system/
+    src: graylog_exporter.service.j2
+    dest: /etc/systemd/system/graylog_exporter.service
     mode: '0644'
-  notify: "restart squid_exporter"
+  notify: "restart graylog_exporter"
 
-- name: "Enable and Start squid_exporter.service"
+- name: "Enable and Start graylog_exporter.service"
   systemd:
-    name: squid_exporter
+    name: graylog_exporter
     state: started
     enabled: true
     daemon_reload: true
