@@ -8,8 +8,8 @@ StartLimitInterval=0
 [Service]
 Type=simple
 Restart=always
-ExecStart=/usr/local/bin/graylog-exporter \
-    -listen-address "{{ graylog_exporter_listen_port }}" \
+ExecStart={{ graylog_exporter_install_dir }}/graylog-exporter \
+    -listen-address ":{{ graylog_exporter_listen_port }}" \
     -log.level {{ graylog_exporter_loglevel }} \
     -graylog.username {{ graylog_exporter_graylog_admin }} \
     -graylog.password {{ graylog_exporter_graylog_passwd }} \

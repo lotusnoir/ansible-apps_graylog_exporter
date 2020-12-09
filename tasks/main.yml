@@ -1,24 +1,31 @@
 ---
+- name: "End play if distribution not suported"
+  meta: end_host
+  when:
+    - ansible_distribution != "Debian"
+    - ansible_distribution != "Ubuntu"
+    - ansible_distribution != "CentOS"
+
 - name: "Check for graylog-exporter binary"
   stat:
-    path: "/usr/local/bin/graylog-exporter"
+    path: "{{ graylog_exporter_install_dir }}/graylog-exporter"
   changed_when: false
   register: graylog_exporter_install
 
-- when: not graylog_exporter_install.stat.exists
+- when: not graylog_exporter_install.stat.exists or graylog_exporter_force_install|bool
   block:
     - name: "Download graylog-exporter..."
       get_url:
         url: '{{ graylog_exporter_url }}'
-        dest: /usr/local/bin/graylog-exporter
-        timeout: 120
-        mode: 0755
+        dest: '{{ graylog_exporter_install_dir }}/graylog-exporter'
+        timeout: '60'
+        mode: '0755'
 
 - name: "Create systemd for graylog_exporter"
   template:
-    src: graylog_exporter.service.j2
-    dest: /etc/systemd/system/graylog_exporter.service
-    mode: '0644'
+    src: 'graylog_exporter.service.j2'
+    dest: '/etc/systemd/system/graylog_exporter.service'
+    mode: '0640'
   notify: "restart graylog_exporter"
 
 - name: "Enable and Start graylog_exporter.service"
