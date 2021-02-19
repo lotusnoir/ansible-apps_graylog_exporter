@@ -18,16 +18,16 @@ Deploy [graylog_exporter](https://github.com/boynux/graylog-exporter) to expose 
 
 ## Role variables
 
-| Name           | Default Value | Description                        |
-| -------------- | ------------- | -----------------------------------|
-| `graylog_exporter_version` | 0.2.1 | graylog_exporter version |
-| `graylog_exporter_install_dir` | /usr/local/bin | directory to install binary |
-| `graylog_exporter_force_install` | false | force install variable |
-| `graylog_exporter_loglevel` | info | loglevel of exporter |
-| `graylog_exporter_graylog_admin` | admin | admin username of graylog |
-| `graylog_exporter_graylog_passwd` | admin | admin password of graylog |
-| `graylog_exporter_graylog_url` | http://localhost:9000 | port of the graylog service on the graylog server |
-| `graylog_exporter_listen_port` | 9122 | port to expose prometheus metrics |
+| Name                              | Default Value         | Description                        |
+| --------------------------------- | --------------------- | -----------------------------------|
+| `graylog_exporter_version`        | 0.2.1                 | graylog_exporter version |
+| `graylog_exporter_install_dir`    | /usr/local/bin        | directory to install binary |
+| `graylog_exporter_force_install`  | false                 | force install variable |
+| `graylog_exporter_loglevel`       | info                  | loglevel of exporter |
+| `graylog_exporter_graylog_admin`  | admin                 | admin username of graylog |
+| `graylog_exporter_graylog_passwd` | admin                 | admin password of graylog |
+| `graylog_exporter_graylog_url`    | http://localhost:9000 | port of the graylog service on the graylog server |
+| `graylog_exporter_listen_port`    | 9122                  | port to expose prometheus metrics |
 
 ## Examples
 
@@ -42,6 +42,14 @@ Deploy [graylog_exporter](https://github.com/boynux/graylog-exporter) to expose 
 	    http_proxy: "{{ http_proxy }}"
 	    https_proxy: "{{ https_proxy }}"
 	    no_proxy: "{{ no_proxy }}
+
+## Prometheus rules
+
+TODO
+
+## Grafana dashboard
+
+A sample dashboard is available here: [https://grafana.com/grafana/dashboards/13569](https://grafana.com/grafana/dashboards/13569)
 
 ## License
 
