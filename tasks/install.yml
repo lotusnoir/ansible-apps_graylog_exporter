@@ -1,0 +1,34 @@
+---
+- name: "Check for graylog-exporter binary"
+  stat:
+    path: "{{ graylog_exporter_install_dir }}/graylog-exporter"
+  changed_when: false
+  register: graylog_exporter_install
+
+- when: not graylog_exporter_install.stat.exists or graylog_exporter_force_install|bool
+  block:
+    - name: "Install requierements"
+      package:
+        name: "ca-certificates"
+        state: present
+
+    - name: "Download graylog-exporter..."
+      get_url:
+        url: '{{ graylog_exporter_url }}'
+        dest: '{{ graylog_exporter_install_dir }}/graylog-exporter'
+        timeout: '60'
+        mode: '0755'
+
+- name: "Create systemd for graylog_exporter"
+  template:
+    src: 'graylog_exporter.service.j2'
+    dest: '/etc/systemd/system/graylog_exporter.service'
+    mode: '0640'
+  notify: "restart graylog_exporter"
+
+- name: "Enable and Start graylog_exporter.service"
+  service:
+    name: graylog_exporter
+    state: started
+    enabled: true
+    daemon_reload: true
