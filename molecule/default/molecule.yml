@@ -4,14 +4,14 @@ dependency:
 driver:
   name: docker
 platforms:
-  - name: ubuntu18_apps_graylog_exporter
+  - name: ubuntu18-apps-graylog-exporter
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu18
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: ubuntu20_apps_graylog_exporter
+  - name: ubuntu20-apps-graylog-exporter
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu20
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
@@ -20,37 +20,37 @@ platforms:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     groups:
       - python3
-  - name: debian10_apps_graylog_exporter
+  - name: debian10-apps-graylog-exporter
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian10
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: debian11_apps_graylog_exporter
+  - name: debian11-apps-graylog-exporter
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian11
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: centos7_apps_graylog_exporter
+  - name: centos7-apps-graylog-exporter
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:centos7
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
     privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
-  - name: centos8_apps_graylog_exporter
-    pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:centos8
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    privileged: true
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    groups:
-      - python3
-  - name: rocky8_apps_graylog_exporter
+#  - name: centos8-apps-graylog-exporter
+#    pre_build_image: true
+#    image: lotusnoir/ansible_molecule_test_images:centos8
+#    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+#    privileged: true
+#    volumes:
+#      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+#    groups:
+#      - python3
+  - name: rocky8-apps-graylog-exporter
     pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:rocky8
     docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
