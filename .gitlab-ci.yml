@@ -83,6 +83,7 @@ push_src_on_github:
     - COMMENT=$(git log -1 --pretty=%B | head -1)
   script:
     - git clone git@github.com:${GITHUB_USER}/ansible-apps_graylog_exporter.git /tmp/ansible-apps_graylog_exporter
+    - find /tmp/ansible-apps_graylog_exporter -mindepth 1 -maxdepth 1 ! -name '.git' -exec rm -rf "{}" +;
     - rm -rf .git
     - cp -r . /tmp/ansible-apps_graylog_exporter/
     - cd /tmp/ansible-apps_graylog_exporter

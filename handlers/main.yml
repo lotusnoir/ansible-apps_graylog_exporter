@@ -1,5 +1,5 @@
 ---
 - name: "restart graylog_exporter"
-  service:
+  ansible.builtin.service:
     name: "graylog_exporter"
     state: "restarted"
