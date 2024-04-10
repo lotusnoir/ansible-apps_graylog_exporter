@@ -42,18 +42,6 @@ molecule_rocky8:
   image: lotusnoir/molecule_play
   script:
     - MOLECULE_DISTRIB=rocky8 molecule test
-molecule_ubuntu20:
-  stage: molecule
-  image: lotusnoir/molecule_play
-  variables:
-    MOLECULE_DOCKER_COMMAND: "--cap-add NET_ADMIN"
-  script:
-    - MOLECULE_DISTRIB=ubuntu20 molecule test
-molecule_ubuntu22:
-  stage: molecule
-  image: lotusnoir/molecule_play
-  script:
-    - MOLECULE_DISTRIB=ubuntu22 molecule test
 molecule_ubuntu18:
   stage: molecule
   image: lotusnoir/molecule_play
@@ -61,6 +49,18 @@ molecule_ubuntu18:
     MOLECULE_DOCKER_COMMAND: "--cap-add NET_ADMIN"
   script:
     - MOLECULE_DISTRIB=ubuntu18 molecule test
+molecule_ubuntu22:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  script:
+    - MOLECULE_DISTRIB=ubuntu22 molecule test
+molecule_ubuntu20:
+  stage: molecule
+  image: lotusnoir/molecule_play
+  variables:
+    MOLECULE_DOCKER_COMMAND: "--cap-add NET_ADMIN"
+  script:
+    - MOLECULE_DISTRIB=ubuntu20 molecule test
 
 ######################################################
 # GENERATE CHANGELOG FILE
@@ -75,9 +75,9 @@ changelog:
     - molecule_oraclelinux8
     - molecule_oraclelinux9
     - molecule_rocky8
-    - molecule_ubuntu20
-    - molecule_ubuntu22
     - molecule_ubuntu18
+    - molecule_ubuntu22
+    - molecule_ubuntu20
   artifacts:
     paths:
       - CHANGELOG.md
