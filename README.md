@@ -22,6 +22,7 @@
 ## Description
 
 Deploy [graylog_exporter](https://github.com/boynux/graylog-exporter) to expose graylog metrics to prometheus.
+
 ## Requirements
 
 none

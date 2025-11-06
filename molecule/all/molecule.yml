@@ -13,89 +13,122 @@ scenario:
     - idempotence
     # - verify
     - destroy
+
 platforms:
-  - name: apps-graylog-exporter-ubuntu18
+  - name: apps-graylog-exporter-ubuntu20
+    image: lotusnoir/ansible_molecule_test_images:ubuntu20
     pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:ubuntu18
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    capabilities: ['NET_ADMIN']
+    cgroupns_mode: host
+    privileged: true
+    capabilities: ["NET_ADMIN"]
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
-  - name: apps-graylog-exporter-ubuntu20
-    pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:ubuntu20
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    capabilities: ['NET_ADMIN']
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
   - name: apps-graylog-exporter-ubuntu22
-    pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu22
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
   - name: apps-graylog-exporter-ubuntu24
-    pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:ubuntu24
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-    groups:
-      - python3
-  - name: apps-graylog-exporter-debian10
     pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:debian10
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:rw
-  - name: apps-graylog-exporter-debian11
-    pre_build_image: true
-    image: lotusnoir/ansible_molecule_test_images:debian11
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    cgroupns_mode: host
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
   - name: apps-graylog-exporter-debian12
-    pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:debian12
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    groups:
+      - python3
+  - name: apps-graylog-exporter-debian11
+    image: lotusnoir/ansible_molecule_test_images:debian11
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    groups:
+      - python3
+  - name: apps-graylog-exporter-debian10
+    image: lotusnoir/ansible_molecule_test_images:debian10
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    groups:
+      - python3
+  - name: apps-graylog-exporter-debiantrixie
+    image: lotusnoir/ansible_molecule_test_images:debiantrixie
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    groups:
+      - python3
+  - name: apps-graylog-exporter-rocky10
+    image: lotusnoir/ansible_molecule_test_images:rocky10
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
   - name: apps-graylog-exporter-rocky8
-    pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:rocky8
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
   - name: apps-graylog-exporter-rocky9
-    pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:rocky9
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
+    groups:
+      - python3
+  - name: apps-graylog-exporter-oraclelinux10
+    image: lotusnoir/ansible_molecule_test_images:oraclelinux10
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
   - name: apps-graylog-exporter-oraclelinux8
-    pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:oraclelinux8
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
       - python3
   - name: apps-graylog-exporter-oraclelinux9
-    pre_build_image: true
     image: lotusnoir/ansible_molecule_test_images:oraclelinux9
-    docker_host: "${DOCKER_HOST:-unix://var/run/docker.sock}"
+    pre_build_image: true
+    cgroupns_mode: host
+    privileged: true
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
     groups:
@@ -105,6 +138,18 @@ provisioner:
   name: ansible
   connection_options:
     ansible_remote_tmp: /tmp
+    ansible_python_interpreter: auto_silent
+  config_options:
+    defaults:
+      roles_path: "${HOME}/.ansible/roles:/usr/share/ansible/roles:/etc/ansible/roles:$MOLECULE_PROJECT_DIRECTORY/.."
+      callbacks_enabled: timer, profile_tasks, profile_roles
+      verbosity: 3
+      forks: 20
+      host_key_checking: false
+    ssh_connection:
+      pipelining: true
+      ssh_args: -o ControlMaster=auto -o ControlPersist=600s
+  log: true
   playbooks:
     prepare: prepare.yml
     converge: playbook.yml
@@ -116,6 +161,8 @@ provisioner:
       bullseye:
         ansible_python_interpreter: "/usr/bin/python3.9"
       bookworm:
+        ansible_python_interpreter: "/usr/bin/python3.9"
+      trixie:
         ansible_python_interpreter: "/usr/bin/python3.9"
 
 verifier:
