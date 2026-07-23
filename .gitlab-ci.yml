@@ -120,6 +120,11 @@ molecule_ubuntu24:
   image: lotusnoir/molecule_play:2.18.11
   script:
     - MOLECULE_DISTRIB=ubuntu24 molecule test
+molecule_ubuntu26:
+  <<: *molecule_job_template
+  image: lotusnoir/molecule_play:2.18.11
+  script:
+    - MOLECULE_DISTRIB=ubuntu26 molecule test
 
 ######################################################
 # GENERATE CHANGELOG FILE
@@ -159,6 +164,8 @@ changelog:
     - job: molecule_ubuntu22
       optional: true
     - job: molecule_ubuntu24
+      optional: true
+    - job: molecule_ubuntu26
       optional: true
   artifacts:
     paths:
